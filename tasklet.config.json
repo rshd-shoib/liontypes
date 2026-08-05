@@ -1,0 +1,6 @@
+{
+  "name": "liontype",
+  "displayName": "LionType",
+  "description": "A cinematic WebGL typing test with a reactive 3D lion avatar, GLSL particle shaders, synthesized keystroke audio, live WPM/accuracy telemetry and a full results dashboard.",
+  "instantAppType": "html"
+}

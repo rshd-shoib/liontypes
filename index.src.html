@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-theme="savanna">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>LionType — the apex typing test</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- ── WebGL stage ───────────────────────────────────────────── -->
+    <canvas id="stage"></canvas>
+    <div id="vignette"></div>
+    <div id="scanlines"></div>
+
+    <!-- ── App shell ─────────────────────────────────────────────── -->
+    <div id="app">
+      <header id="topbar">
+        <div class="brand">
+          <span class="brand-glyph" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="26" height="26">
+              <path
+                d="M24 4 L30 12 L40 10 L37 20 L44 26 L35 30 L36 40 L26 36 L24 44 L22 36 L12 40 L13 30 L4 26 L11 20 L8 10 L18 12 Z"
+                fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+              <circle cx="24" cy="25" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2" />
+              <circle cx="21" cy="23" r="1.4" fill="currentColor" />
+              <circle cx="27" cy="23" r="1.4" fill="currentColor" />
+              <path d="M24 27 l-2.5 2 h5 z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="brand-word">lion<b>type</b></span>
+          <span class="brand-tag">apex typing</span>
+        </div>
+
+        <nav id="config" aria-label="Test configuration">
+          <div class="cfg-group" data-group="mode">
+            <button class="cfg" data-mode="time" data-active="1">time</button>
+            <button class="cfg" data-mode="words">words</button>
+            <button class="cfg" data-mode="quote">quote</button>
+            <button class="cfg" data-mode="zen">zen</button>
+          </div>
+          <span class="cfg-sep"></span>
+          <div class="cfg-group" data-group="amount" id="amount-group"></div>
+          <span class="cfg-sep"></span>
+          <div class="cfg-group" data-group="mods">
+            <button class="cfg mod" data-mod="punctuation" title="Add punctuation">! punctuation</button>
+            <button class="cfg mod" data-mod="numbers" title="Add numbers"># numbers</button>
+          </div>
+        </nav>
+
+        <div class="topbar-right">
+          <button class="icon-btn" id="btn-theme" title="Cycle theme (Ctrl+Shift+T)">◈</button>
+          <button class="icon-btn" id="btn-sound" title="Toggle sound (Ctrl+Shift+S)" data-on="1">♪</button>
+          <button class="icon-btn" id="btn-lion" title="Toggle 3D lion (Ctrl+Shift+L)" data-on="1">▲</button>
+          <button class="icon-btn" id="btn-leader" title="Session history">☰</button>
+        </div>
+      </header>
+
+      <!-- ── Typing arena ───────────────────────────────────────── -->
+      <main id="arena">
+        <div id="live-strip">
+          <div class="live-item"><span class="live-val" id="live-progress">30</span><span class="live-lab">left</span></div>
+          <div class="live-item"><span class="live-val" id="live-wpm">0</span><span class="live-lab">wpm</span></div>
+          <div class="live-item"><span class="live-val" id="live-acc">100<i>%</i></span><span class="live-lab">acc</span></div>
+          <div class="live-item"><span class="live-val" id="live-streak">0</span><span class="live-lab">streak</span></div>
+        </div>
+
+        <div id="type-shell">
+          <div id="caret"></div>
+          <div id="words" tabindex="0" role="textbox" aria-label="Typing area"></div>
+          <div id="focus-veil"><span>click here or press any key to focus</span></div>
+          <input id="ghost-input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-hidden="true" />
+        </div>
+
+        <div id="arena-foot">
+          <button class="ghost-btn" id="btn-restart" title="Restart (Tab + Enter, or Esc)">
+            <span class="kbd">tab</span> restart
+          </button>
+          <div id="combo-meter"><div id="combo-fill"></div><span id="combo-label">warming up</span></div>
+        </div>
+      </main>
+
+      <!-- ── Results ────────────────────────────────────────────── -->
+      <section id="results" hidden>
+        <div class="res-head">
+          <div class="res-hero">
+            <div class="hero-metric">
+              <span class="hero-num" id="res-wpm">0</span>
+              <span class="hero-lab">wpm</span>
+            </div>
+            <div class="hero-metric">
+              <span class="hero-num" id="res-acc">0<i>%</i></span>
+              <span class="hero-lab">accuracy</span>
+            </div>
+            <div class="hero-rank" id="res-rank">
+              <span class="rank-badge" id="rank-badge">CUB</span>
+              <span class="rank-sub" id="rank-sub">keep hunting</span>
+            </div>
+          </div>
+          <div id="pb-flag" hidden>◆ new personal best</div>
+        </div>
+
+        <div class="res-body">
+          <div class="chart-wrap"><canvas id="res-chart"></canvas></div>
+          <div class="res-grid">
+            <div class="res-cell"><span class="rc-lab">raw</span><span class="rc-val" id="res-raw">0</span></div>
+            <div class="res-cell"><span class="rc-lab">consistency</span><span class="rc-val" id="res-cons">0%</span></div>
+            <div class="res-cell"><span class="rc-lab">characters</span><span class="rc-val" id="res-chars">0/0/0/0</span></div>
+            <div class="res-cell"><span class="rc-lab">time</span><span class="rc-val" id="res-time">0s</span></div>
+            <div class="res-cell"><span class="rc-lab">test</span><span class="rc-val" id="res-mode">time 30</span></div>
+            <div class="res-cell"><span class="rc-lab">peak</span><span class="rc-val" id="res-peak">0 wpm</span></div>
+          </div>
+        </div>
+
+        <div class="res-actions">
+          <button class="ghost-btn primary" id="btn-again">▸ next test</button>
+          <button class="ghost-btn" id="btn-repeat">↻ repeat</button>
+          <button class="ghost-btn" id="btn-share">⧉ copy result</button>
+        </div>
+      </section>
+
+      <!-- ── History drawer ─────────────────────────────────────── -->
+      <aside id="drawer" hidden>
+        <div class="drawer-head"><h3>session history</h3><button class="icon-btn" id="btn-drawer-close">✕</button></div>
+        <div id="drawer-body"></div>
+      </aside>
+
+      <footer id="bottombar">
+        <span><span class="kbd">tab</span> restart</span>
+        <span><span class="kbd">esc</span> new test</span>
+        <span><span class="kbd">ctrl</span>+<span class="kbd">⇧</span>+<span class="kbd">t</span> theme</span>
+        <span id="fps-readout">— fps</span>
+      </footer>
+    </div>
+
+    <div id="boot"><div class="boot-ring"></div><span>waking the lion…</span></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
