@@ -1,0 +1,171 @@
+{
+  "updatedAt": "2026-08-04T11:15:00Z",
+  "records": [
+    {
+      "name": "Joshu (joshua728)",
+      "wpm": 317.443,
+      "accuracy": null,
+      "context": "Fastest TypeRacer maintrack race (adjusted speed), as documented by TypeRacer's blog.",
+      "year": "2023",
+      "source": "https://blog.typeracer.com/2023/08/21/whos-the-fastest-typer-in-the-world-meet-the-newly-crowned-worlds-fastest-typist-of-2023-by-typingstats-joshu-from-california-united-states/"
+    },
+    {
+      "name": "Stella Pajunas (later Garnand)",
+      "wpm": 216,
+      "accuracy": null,
+      "context": "Official 1946 test: typed 216 words in one minute on an IBM machine in Chicago, Illinois, USA.",
+      "year": "1946",
+      "source": "https://www.guinnessworldrecords.com/world-records/67967-fastest-typist-on-an-electronic-typewriter"
+    }
+  ],
+  "live": [
+    {
+      "user": "rocket",
+      "wpm": 318.99,
+      "accuracy": 99.03,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "przewodowy",
+      "wpm": 317.79,
+      "accuracy": 98.51,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "joshua728",
+      "wpm": 314.39,
+      "accuracy": 99.25,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "fallenrelic",
+      "wpm": 304.74,
+      "accuracy": 100,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "saerith",
+      "wpm": 304.6,
+      "accuracy": 98.48,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "Aperson998",
+      "wpm": 298.4,
+      "accuracy": 98.95,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "Xander_EC",
+      "wpm": 293.3,
+      "accuracy": 99.73,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "HAKSOZ",
+      "wpm": 287.85,
+      "accuracy": 97.88,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "dragoncityjose",
+      "wpm": 286.58,
+      "accuracy": 98.1,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "APackOfSmarties",
+      "wpm": 285.55,
+      "accuracy": 100,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "hiimnotgood",
+      "wpm": 284.77,
+      "accuracy": 100,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "slekap",
+      "wpm": 277.6,
+      "accuracy": 99.15,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "carlibou",
+      "wpm": 277.47,
+      "accuracy": 97,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "XDmoment",
+      "wpm": 275.95,
+      "accuracy": 98.03,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    },
+    {
+      "user": "builtdiffirent",
+      "wpm": 274.47,
+      "accuracy": 96.98,
+      "mode": "All-time English Time 15",
+      "site": "Monkeytype",
+      "source": "https://monkeytype.com/leaderboards"
+    }
+  ],
+  "benchmarks": [
+    {
+      "label": "Most proficient third of a university-student sample",
+      "wpm": 80,
+      "note": "Mean sentence-copying speed (IQR 20) for the study's approximately top third by jointly selected speed and accuracy; 435 of 1,301 Aix-Marseille University students, predominantly young French speakers.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9356123/"
+    },
+    {
+      "label": "Least proficient third of a university-student sample",
+      "wpm": 54,
+      "note": "Mean sentence-copying speed (IQR 18) for the study's approximately bottom third by jointly selected speed and accuracy; 432 of 1,301 Aix-Marseille University students.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9356123/"
+    },
+    {
+      "label": "Overall mean in a prior broad typing sample",
+      "wpm": 52,
+      "note": "The 2022 study reports that Dhakal et al. (2018) found an overall mean of 52 WPM in its sample; use as a cited benchmark, not as a universal adult average.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9356123/"
+    }
+  ],
+  "percentiles": [],
+  "unavailable": [
+    {
+      "site": "Nitro Type",
+      "reason": "The attempted public URL https://www.nitrotype.com/leaderboards displayed a 404 Error page, so no leaderboard scores were included."
+    }
+  ],
+  "notes": "Updated from pages read on 2026-08-04 UTC. The 15 highest current live entries are Monkeytype's readable all-time English 15-second table; they are short-test, site-reported results and are not comparable with the Guinness one-minute typewriter record. The specified TypeRacer text-details page was readable and supplied a per-text Top 10, not a current all-time or rolling global high-score board, so its entries were not mixed into the capped live list. 10FastFingers exposed a current English Normal one-minute WPM ranking without accuracy values, but its scores did not enter the overall top 15. The benchmarks are research-sample results, not global population percentiles; no defensible published percentile cutoffs were found, so percentiles is intentionally empty. The 317.443 WPM record is a TypeRacer adjusted-speed maintrack score documented by TypeRacer, not a Guinness world record."
+}

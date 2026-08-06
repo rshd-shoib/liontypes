@@ -1,12 +1,14 @@
 #!/bin/bash
-# Builds LionType: bundles src/ into a single self-contained index.html
+# LionType build — bundles src/ into one self-contained index.html
+# Requires: bun (https://bun.sh) and python3
 set -e
-APP=/tasklet/agent/home/apps/liontype
-WORK=/tmp/lt
+APP="$(cd "$(dirname "$0")" && pwd)"
+WORK="$APP/.build"
 
 if [ ! -d "$WORK/node_modules" ]; then
   rm -rf "$WORK"; mkdir -p "$WORK"; cd "$WORK"
   echo '{"type":"module"}' > package.json
+  echo "installing three + chart.js ..."
   bun add three@0.169.0 chart.js@4.4.4 >/dev/null 2>&1
 fi
 
@@ -26,19 +28,17 @@ PY
 
 bun build src/main.js --outfile dist/iife.js --format iife --target browser --minify 2>&1 | tail -3
 
-python3 - <<'PY'
-import pathlib
-app = pathlib.Path('/tasklet/agent/home/apps/liontype')
-src = app / 'index.src.html'
-if not src.exists():
-    src.write_text((app / 'index.html').read_text())
-h = src.read_text()
+APP="$APP" python3 - <<'PY'
+import pathlib, os
+app = pathlib.Path(os.environ['APP'])
+h = (app / 'index.src.html').read_text()
 css = (app / 'styles.css').read_text()
-js = pathlib.Path('/tmp/lt/dist/iife.js').read_text()
+js = (app / '.build/dist/iife.js').read_text()
 for tag in ['<link rel="stylesheet" href="./styles.css" />', '<link rel="stylesheet" href="./styles.css">']:
     h = h.replace(tag, '<style>\n' + css + '\n</style>')
 for tag in ['<script type="module" src="./app.js"></script>', '<script src="./app.js"></script>', '<script type="module" src="./src/main.js"></script>']:
     h = h.replace(tag, '<script>\n' + js + '\n</script>')
 (app / 'index.html').write_text(h)
-print('built index.html bytes:', len(h), '| inlined css:', '<style>' in h, '| inlined js:', 'const ' in js[:2000] or True)
+print('built index.html —', len(h), 'bytes')
 PY
+echo "done. open index.html in a browser."

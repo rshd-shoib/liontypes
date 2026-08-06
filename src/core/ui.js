@@ -2,6 +2,8 @@
    UIController — DOM rendering, config bar, results, history
    ══════════════════════════════════════════════════════════════ */
 
+import { Leaderboard } from './leaderboard.js';
+
 const $ = (sel) => document.querySelector(sel);
 const LS_KEY = 'liontype.v1';
 
@@ -153,7 +155,12 @@ export class UIController {
       this.scene.setLionVisible(on);
       this._savePrefs(); this.focus();
     });
-    $('#btn-leader').addEventListener('click', () => this.toggleDrawer());
+    this.board = new Leaderboard($('#leaderboard'));
+    $('#btn-board').addEventListener('click', () => {
+      this.toggleDrawer(false);
+      this.board.toggle(this.store);
+    });
+    $('#btn-leader').addEventListener('click', () => { this.board.close(); this.toggleDrawer(); });
     $('#btn-drawer-close').addEventListener('click', () => this.toggleDrawer(false));
     $('#btn-restart').addEventListener('click', () => this.newTest());
     $('#btn-again').addEventListener('click', () => this.newTest());
