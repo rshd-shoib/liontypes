@@ -1,6 +1,6 @@
 #!/bin/bash
 # Cloudflare Workers Builds entry point for LionType.
-# build.sh now resolves its own paths, so this just runs it and
+# build.sh resolves its own location, so this just runs it and
 # moves the self-contained index.html into ./public for wrangler.
 set -euo pipefail
 bash build.sh

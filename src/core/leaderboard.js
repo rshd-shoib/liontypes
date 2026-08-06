@@ -39,6 +39,19 @@ function rowRecord(r, i) {
   </li>`;
 }
 
+function rowSite(r, i) {
+  const when = Number.isFinite(r.created_at) ? ago(new Date(r.created_at * 1000).toISOString()) : '';
+  return `<li class="lb-row">
+    <span class="lb-pos">${i + 1}</span>
+    <span class="lb-main">
+      <b class="lb-name">${esc(r.name)}</b>
+      <span class="lb-meta">${esc(r.mode)}${r.amount != null ? ` ${esc(r.amount)}` : ''} · ${num(r.accuracy)}% acc</span>
+      <span class="lb-meta lb-dim">${when}</span>
+    </span>
+    <span class="lb-wpm">${num(r.wpm)}<i>wpm</i></span>
+  </li>`;
+}
+
 function rowLive(r, i, youWpm) {
   const beaten = youWpm && youWpm >= r.wpm;
   return `<li class="lb-row${beaten ? ' lb-beaten' : ''}">
@@ -120,9 +133,60 @@ function standing(youWpm, youAcc, runs) {
 export class Leaderboard {
   constructor(root) {
     this.root = root;
-    this.tab = 'live';
+    this.tab = 'site';
     this.store = { history: [] };
     this._built = false;
+    this.site = { loading: false, loaded: false, error: null, scores: [] };
+  }
+
+  /** Best-effort: fetch the real top-50 from the site's own API. */
+  async loadSite() {
+    if (this.site.loading) return;
+    this.site.loading = true;
+    this.site.error = null;
+    try {
+      const res = await fetch('/api/leaderboard');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      this.site.scores = Array.isArray(data.scores) ? data.scores : [];
+      this.site.loaded = true;
+    } catch (e) {
+      this.site.error = 'Could not reach the leaderboard right now.';
+    } finally {
+      this.site.loading = false;
+      if (!this.root.hidden) this.render();
+    }
+  }
+
+  /** Best-effort: submit a finished run to the real leaderboard. Never blocks the UI. */
+  async submitScore(run) {
+    if (!run || !run.wpm || run.elapsed < 4) return;
+    try {
+      await fetch('/api/score', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: this._getName(),
+          wpm: run.wpm, accuracy: run.acc, mode: run.mode,
+          amount: run.amount, elapsed: run.elapsed,
+        }),
+      });
+      this.site.loaded = false; // next open re-fetches so the new score can show up
+    } catch { /* offline or blocked — fail silently, this is best-effort */ }
+  }
+
+  _getName() {
+    try {
+      const saved = localStorage.getItem('liontype.name');
+      if (saved) return saved;
+    } catch {}
+    let name = 'anon';
+    try {
+      const entered = window.prompt('Pick a name for the leaderboard (max 20 chars):', 'Player');
+      if (entered && entered.trim()) name = entered.trim().slice(0, 20);
+    } catch {}
+    try { localStorage.setItem('liontype.name', name); } catch {}
+    return name;
   }
 
   open(store) {
@@ -152,7 +216,17 @@ export class Leaderboard {
     const live = [...DATA.live].sort((a, b) => b.wpm - a.wpm);
     const records = [...DATA.records].sort((a, b) => b.wpm - a.wpm);
 
+    if (this.tab === 'site' && !this.site.loaded && !this.site.loading) this.loadSite();
+
     const panes = {
+      site: this.site.loading
+        ? '<div class="lb-empty"><b>Loading…</b></div>'
+        : this.site.error
+        ? `<div class="lb-empty"><b>${esc(this.site.error)}</b></div>`
+        : this.site.scores.length
+        ? `<ol class="lb-list">${this.site.scores.map(rowSite).join('')}</ol>
+           <p class="lb-caveat">Real runs, submitted from this site. Top ${this.site.scores.length}, ranked by WPM.</p>`
+        : '<div class="lb-empty"><b>No runs yet.</b><span>Finish a test to be the first on the board.</span></div>',
       live: live.length
         ? `<ol class="lb-list">${live.map((r, i) => rowLive(r, i, youWpm)).join('')}</ol>`
         : '<div class="lb-empty"><b>No board scores available.</b></div>',
@@ -183,7 +257,8 @@ export class Leaderboard {
         </header>
 
         <nav class="lb-tabs">
-          <button class="lb-tab" data-tab="live">live boards</button>
+          <button class="lb-tab" data-tab="site">on this site</button>
+          <button class="lb-tab" data-tab="live">other sites</button>
           <button class="lb-tab" data-tab="records">world records</button>
           <button class="lb-tab" data-tab="bench">benchmarks</button>
           <button class="lb-tab" data-tab="you">your standing</button>

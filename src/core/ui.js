@@ -195,7 +195,7 @@ export class UIController {
     this.bus.on('key', () => { document.body.classList.add('typing'); this.paintActive(); this.moveCaret(); });
     this.bus.on('word', () => { this.paintActive(); });
     this.bus.on('tick', (s) => this.updateLive(s));
-    this.bus.on('finish', (r) => { document.body.classList.remove('typing'); this.showResults(r); });
+    this.bus.on('finish', (r) => { document.body.classList.remove('typing'); this.showResults(r); this.board.submitScore(r); });
   }
 
   /* ── word rendering ────────────────────────────────────── */
