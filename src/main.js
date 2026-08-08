@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════
-   LionType — bootstrap
+   LionTypes — bootstrap
    ══════════════════════════════════════════════════════════════ */
 
 import { createEmitter } from './core/emitter.js';

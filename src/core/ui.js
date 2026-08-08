@@ -406,7 +406,7 @@ export class UIController {
   async _share(btn) {
     const r = this._lastResult;
     if (!r) return;
-    const txt = `🦁 LionType — ${r.wpm} wpm · ${Math.round(r.acc)}% acc · ${r.consistency}% consistency · ${r.mode}${typeof r.amount === 'number' ? ' ' + r.amount : ''}`;
+    const txt = `🦁 LionTypes — ${r.wpm} wpm · ${Math.round(r.acc)}% acc · ${r.consistency}% consistency · ${r.mode}${typeof r.amount === 'number' ? ' ' + r.amount : ''}`;
     try { await navigator.clipboard.writeText(txt); } catch {}
     const old = btn.textContent;
     btn.textContent = '✓ copied';

@@ -30,7 +30,7 @@ tokenize topology transpile traversal validation variance velocity virtualizatio
 export const QUOTES = [
   { text: "The lion does not turn around when a small dog barks.", author: "African proverb" },
   { text: "It is better to live one day as a lion than a hundred years as a sheep.", author: "Italian proverb" },
-  { text: "Speed is a byproduct of precision. Chase the clean stroke and the clock will follow on its own.", author: "LionType" },
+  { text: "Speed is a byproduct of precision. Chase the clean stroke and the clock will follow on its own.", author: "LionTypes" },
   { text: "Everything you can imagine is real, and everything real was once only imagined by someone stubborn enough to keep going.", author: "Pablo Picasso" },
   { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit formed one small repetition at a time.", author: "Will Durant" },
   { text: "The best time to plant a tree was twenty years ago. The second best time is now, so stop reading and start moving.", author: "Proverb" },

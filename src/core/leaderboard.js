@@ -124,7 +124,7 @@ function standing(youWpm, youAcc, runs) {
     <ul class="lb-notes">${lines.map((l) => `<li>${l}</li>`).join('')}</ul>
     <p class="lb-caveat">
       Straight talk: these are other sites' scoring systems on other test formats.
-      Your LionType number is measured here, so treat this as a reference point, not an official ranking.
+      Your LionTypes number is measured here, so treat this as a reference point, not an official ranking.
     </p>
   </div>`;
 }

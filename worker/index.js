@@ -1,4 +1,4 @@
-/* LionType leaderboard API — backed by D1.
+/* LionTypes leaderboard API — backed by D1.
    Only /api/* hits this Worker (see wrangler.jsonc run_worker_first);
    everything else is served directly as a static asset. */
 

@@ -1,4 +1,4 @@
-# LionType 🦁
+# LionTypes 🦁
 
 A typing test with a reactive 3D lion. Vanilla JS + Three.js + hand-written GLSL.
 No runtime CDN calls — the built file is fully self-contained and works offline.
@@ -65,8 +65,8 @@ back to the page it came from.
 
 Three things to understand about it:
 
-1. **These are not LionType players.** They are the fastest documented typists on
-   *other* sites. LionType has no backend, so there is no player network to rank.
+1. **These are not LionTypes players.** They are the fastest documented typists on
+   *other* sites. LionTypes has no backend, so there is no player network to rank.
 2. **Formats are not comparable.** A ~319 WPM Monkeytype score is a 15-second
    sprint; the 216 WPM Guinness record was a full minute on a typewriter. The app
    labels each entry's format rather than blending them into one ranking.

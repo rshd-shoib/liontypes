@@ -1,4 +1,4 @@
-# LionType — connecting the real leaderboard backend
+# LionTypes — connecting the real leaderboard backend
 
 This project deploys as **one Cloudflare Worker** that does two jobs:
 1. Serves the built app (`public/index.html`) as a static asset — everything
