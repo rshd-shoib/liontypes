@@ -1,5 +1,5 @@
 {
-  "name": "liontype",
+  "name": "liontypes",
   "compatibility_date": "2026-08-06",
   "main": "worker/index.js",
   "assets": {
