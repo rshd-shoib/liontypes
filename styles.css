@@ -339,7 +339,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 /* ══════════════════════════════════════════════════════════════
    WORLD LEADERBOARD
    ══════════════════════════════════════════════════════════════ */
-#leaderboard {
+#leaderboard, #about {
   position: fixed; inset: 0; z-index: 60;
   display: grid; place-items: start center;
   padding: clamp(12px, 3vh, 40px) 16px;
@@ -349,6 +349,26 @@ html, body { overflow-x: hidden; max-width: 100%; }
   animation: lbIn .28s cubic-bezier(.2,.9,.25,1);
 }
 @keyframes lbIn { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+
+.about-shell {
+  position: relative;
+  width: min(640px, 100%);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(14,14,18,.92), rgba(8,8,11,.96));
+  box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.03) inset;
+  padding: 32px 30px;
+}
+.about-shell h2 { margin: 0 0 12px; font-size: 22px; color: var(--txt-hi); }
+.about-shell h3 { margin: 26px 0 12px; font-size: 15px; color: var(--txt-hi); }
+.about-shell p { margin: 0 0 10px; font-size: 14px; line-height: 1.6; color: var(--txt-mid); }
+.about-close { position: absolute; top: 16px; right: 16px; }
+.faq details {
+  border: 1px solid rgba(255,255,255,.08); border-radius: 10px;
+  padding: 12px 14px; margin-bottom: 8px; background: rgba(255,255,255,.02);
+}
+.faq summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--txt-hi); }
+.faq details p { margin-top: 8px; margin-bottom: 0; }
 
 .lb-shell {
   width: min(880px, 100%);

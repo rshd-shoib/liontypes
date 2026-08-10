@@ -69,6 +69,8 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Tab') { e.preventDefault(); ui.newTest(); return; }
   if (e.key === 'Escape') {
     e.preventDefault();
+    const about = document.getElementById('about');
+    if (about && !about.hidden) { about.hidden = true; return; }
     if (ui.board && !ui.board.root.hidden) { ui.board.close(); return; }
     ui.toggleDrawer(false); ui.newTest(); return;
   }

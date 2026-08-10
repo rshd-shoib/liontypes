@@ -161,6 +161,12 @@ export class UIController {
       this.board.toggle(this.store);
     });
     $('#btn-leader').addEventListener('click', () => { this.board.close(); this.toggleDrawer(); });
+    $('#btn-about').addEventListener('click', () => {
+      this.toggleDrawer(false);
+      this.board.close();
+      $('#about').hidden = !$('#about').hidden;
+    });
+    $('#btn-about-close').addEventListener('click', () => { $('#about').hidden = true; });
     $('#btn-drawer-close').addEventListener('click', () => this.toggleDrawer(false));
     $('#btn-restart').addEventListener('click', () => this.newTest());
     $('#btn-again').addEventListener('click', () => this.newTest());
