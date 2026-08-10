@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="google-site-verification" content="Z6jwDY0PKNJ7RBeHpKTCIryvmO6Q368yaPZBWFtZGLY" />
     <meta name="description" content="LionTypes — a cinematic WebGL typing test with a reactive 3D lion avatar, live WPM/accuracy telemetry, and a real player leaderboard." />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="google-site-verification" content="Z6jwDY0PKNJ7RBeHpKTCIryvmO6Q368yaPZBWFtZGLY" />
     <meta name="theme-color" content="#f4b942" />
 
     <meta property="og:type" content="website" />
@@ -23,6 +23,50 @@
     <meta name="twitter:title" content="LionTypes — the apex typing test" />
     <meta name="twitter:description" content="A cinematic WebGL typing test with a reactive 3D lion avatar, live telemetry, and a real player leaderboard." />
     <meta name="twitter:image" content="https://liontypes.in/og-image.png" />
+
+    <link rel="canonical" href="https://liontypes.in/" />
+    <meta name="robots" content="index, follow" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "LionTypes",
+      "url": "https://liontypes.in/",
+      "description": "A cinematic WebGL typing test with a reactive 3D lion avatar, live WPM and accuracy telemetry, and a real player leaderboard.",
+      "applicationCategory": "Game",
+      "operatingSystem": "Any (runs in browser)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question", "name": "How is WPM calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Words per minute is calculated as (correctly typed characters ÷ 5) ÷ minutes elapsed — the standard typing-test convention, where one word is counted as 5 characters regardless of actual word length." }
+        },
+        {
+          "@type": "Question", "name": "How is accuracy calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Accuracy is the percentage of keystrokes that were correct on the first try, out of all keystrokes typed during the test, including characters you later corrected." }
+        },
+        {
+          "@type": "Question", "name": "What's the difference between time, words, quote, and zen mode?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Time gives you a fixed duration and counts how much you type. Words gives you a fixed word count and times how long it takes. Quote has you type a real quote start to finish. Zen has no limit — type for as long as you want, then stop whenever." }
+        },
+        {
+          "@type": "Question", "name": "Is the leaderboard real people?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The on-this-site leaderboard is real — every entry is an actual finished run submitted from this site, with basic server-side checks against obviously spoofed scores. The other reference boards are sourced from public data on other typing sites and documented world records, not LionTypes runs, and are labeled as such." }
+        },
+        {
+          "@type": "Question", "name": "Is LionTypes free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — no account, no paywall, no ads." }
+        }
+      ]
+    }
+    </script>
 
     <title>LionTypes — the apex typing test</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -65,6 +109,7 @@
           <button class="icon-btn" id="btn-sound" title="Toggle sound (Ctrl+Shift+S)" data-on="1">♪</button>
           <button class="icon-btn" id="btn-lion" title="Toggle 3D lion (Ctrl+Shift+L)" data-on="1">▲</button>
           <button class="icon-btn" id="btn-board" title="World leaderboard">♛</button>
+          <button class="icon-btn" id="btn-about" title="About &amp; FAQ">?</button>
           <button class="icon-btn" id="btn-leader" title="Session history">☰</button>
         </div>
       </header>
@@ -134,6 +179,46 @@
 
       <!-- ── World leaderboard ───────────────────────────────── -->
       <section id="leaderboard" hidden></section>
+
+      <!-- ── About & FAQ ────────────────────────────────────────── -->
+      <section id="about" hidden>
+        <div class="about-shell">
+          <button class="icon-btn about-close" id="btn-about-close" title="Close">✕</button>
+          <h2>About LionTypes</h2>
+          <p>
+            LionTypes is a typing test built around a reactive 3D lion avatar —
+            its mane, eyes, and posture respond live to your speed, streak, and
+            mistakes, rendered in WebGL with hand-written GLSL shaders. Under
+            the hood it tracks words-per-minute, accuracy, and consistency the
+            same way most typing tests do, then adds a real leaderboard of
+            actual runs submitted from this site.
+          </p>
+
+          <h3>Frequently asked questions</h3>
+          <div class="faq">
+            <details>
+              <summary>How is WPM calculated?</summary>
+              <p>Words per minute is calculated as (correctly typed characters ÷ 5) ÷ minutes elapsed — the standard typing-test convention, where one "word" is counted as 5 characters regardless of actual word length.</p>
+            </details>
+            <details>
+              <summary>How is accuracy calculated?</summary>
+              <p>Accuracy is the percentage of keystrokes that were correct on the first try, out of all keystrokes typed during the test — including characters you later corrected.</p>
+            </details>
+            <details>
+              <summary>What's the difference between time, words, quote, and zen mode?</summary>
+              <p><b>Time</b> gives you a fixed duration and counts how much you type. <b>Words</b> gives you a fixed word count and times how long it takes. <b>Quote</b> has you type a real quote start to finish. <b>Zen</b> has no limit — type for as long as you want, then stop whenever.</p>
+            </details>
+            <details>
+              <summary>Is the leaderboard real people?</summary>
+              <p>The "on this site" leaderboard is real — every entry is an actual finished run submitted from this site, with basic server-side checks against obviously spoofed scores. The other reference boards are sourced from public data on other typing sites and documented world records, not LionTypes runs, and are labeled as such.</p>
+            </details>
+            <details>
+              <summary>Is LionTypes free?</summary>
+              <p>Yes — no account, no paywall, no ads.</p>
+            </details>
+          </div>
+        </div>
+      </section>
 
       <!-- ── History drawer ─────────────────────────────────────── -->
       <aside id="drawer" hidden>
