@@ -23,15 +23,7 @@
     <meta name="twitter:title" content="LionTypes — the apex typing test" />
     <meta name="twitter:description" content="A cinematic WebGL typing test with a reactive 3D lion avatar, live telemetry, and a real player leaderboard." />
     <meta name="twitter:image" content="https://liontypes.in/og-image.png" />
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-94F5CTT8P3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-94F5CTT8P3');
-</script>
     <link rel="canonical" href="https://liontypes.in/" />
     <meta name="robots" content="index, follow" />
     <script type="application/ld+json">
@@ -80,6 +72,7 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div id="toast" hidden></div>
     <!-- ── WebGL stage ───────────────────────────────────────────── -->
     <canvas id="stage"></canvas>
     <div id="vignette"></div>
@@ -115,6 +108,7 @@
         <div class="topbar-right">
           <button class="icon-btn" id="btn-theme" title="Cycle theme (Ctrl+Shift+T)">◈</button>
           <button class="icon-btn" id="btn-sound" title="Toggle sound (Ctrl+Shift+S)" data-on="1">♪</button>
+          <button class="icon-btn" id="btn-soundprofile" title="Cycle keystroke sound (Ctrl+Shift+P)">🎚</button>
           <button class="icon-btn" id="btn-lion" title="Toggle 3D lion (Ctrl+Shift+L)" data-on="1">▲</button>
           <button class="icon-btn" id="btn-board" title="World leaderboard">♛</button>
           <button class="icon-btn" id="btn-about" title="About &amp; FAQ">?</button>

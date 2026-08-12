@@ -14,6 +14,9 @@ export const THEMES = [
   { id: 'matrix',  label: 'matrix',       accent: 0x3ddc84, accent2: 0x0fa958 },
   { id: 'orchid',  label: 'orchid',       accent: 0xc77dff, accent2: 0xff8fd0 },
   { id: 'arctic',  label: 'arctic',       accent: 0x9ad7ff, accent2: 0x4ea8ff },
+  { id: 'royal',   label: 'royal violet', accent: 0x4d6bff, accent2: 0xa855f7 },
+  { id: 'crimson', label: 'crimson gold', accent: 0xff3b5c, accent2: 0xffb020 },
+  { id: 'solar',   label: 'solar flare',  accent: 0xffd60a, accent2: 0xff5fa2 },
 ];
 
 function paletteOf(theme) {

@@ -3,6 +3,7 @@
    ══════════════════════════════════════════════════════════════ */
 
 import { Leaderboard } from './leaderboard.js';
+import { SOUND_PROFILES } from './audio.js';
 
 const $ = (sel) => document.querySelector(sel);
 const LS_KEY = 'liontype.v1';
@@ -66,6 +67,7 @@ export class UIController {
     const p = this.store.prefs || {};
     if (typeof p.theme === 'number') this.scene.applyTheme(p.theme);
     if (p.sound === false) { this.audio.setEnabled(false); $('#btn-sound').dataset.on = '0'; }
+    if (typeof p.soundProfile === 'string') this.audio.setProfile(p.soundProfile);
     if (p.lion === false) { this.scene.setLionVisible(false); $('#btn-lion').dataset.on = '0'; }
     if (p.config) {
       Object.assign(this.engine.config, p.config);
@@ -81,10 +83,24 @@ export class UIController {
     this.store.prefs = {
       theme: this.scene.themeIndex,
       sound: $('#btn-sound').dataset.on === '1',
+      soundProfile: this.audio.profile,
       lion: $('#btn-lion').dataset.on === '1',
       config: { ...this.engine.config },
     };
     this._save();
+  }
+
+  _showToast(text) {
+    const el = $('#toast');
+    if (!el) return;
+    el.textContent = text;
+    el.hidden = false;
+    requestAnimationFrame(() => el.classList.add('show'));
+    clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(() => {
+      el.classList.remove('show');
+      setTimeout(() => { el.hidden = true; }, 260);
+    }, 1200);
   }
 
   /* ── config bar ────────────────────────────────────────── */
@@ -147,6 +163,14 @@ export class UIController {
       e.currentTarget.dataset.on = on ? '1' : '0';
       this.audio.setEnabled(on);
       if (on) this.audio.key(0);
+      this._savePrefs(); this.focus();
+    });
+    $('#btn-soundprofile')?.addEventListener('click', () => {
+      const i = (SOUND_PROFILES.indexOf(this.audio.profile) + 1) % SOUND_PROFILES.length;
+      const next = SOUND_PROFILES[i];
+      this.audio.setProfile(next);
+      if ($('#btn-sound').dataset.on === '1') this.audio.key(0);
+      this._showToast(next);
       this._savePrefs(); this.focus();
     });
     $('#btn-lion').addEventListener('click', (e) => {

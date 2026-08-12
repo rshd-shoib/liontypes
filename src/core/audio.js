@@ -4,14 +4,31 @@
    plus a low savanna drone bed that swells with typing speed.
    ══════════════════════════════════════════════════════════════ */
 
+/* Keystroke-sound character presets — these only shape the per-key click
+   (key/space), which is what reads as "keyboard feel". Feedback sounds
+   (error/word/milestone/finish/roar) stay consistent across profiles since
+   they're state signals, not keyboard character. */
+export const SOUND_PROFILES = ['thock', 'clicky', 'soft', 'arcade'];
+const PROFILE_PARAMS = {
+  thock:  { noiseFreq: 1500, noiseQ: 0.9, noiseGain: 0.14, noiseDecay: 0.028, toneType: 'triangle', toneGain: 0.09, toneBase: 128 },
+  clicky: { noiseFreq: 3200, noiseQ: 1.6, noiseGain: 0.12, noiseDecay: 0.014, toneType: 'square',   toneGain: 0.05, toneBase: 210 },
+  soft:   { noiseFreq: 900,  noiseQ: 0.6, noiseGain: 0.10, noiseDecay: 0.05,  toneType: 'sine',     toneGain: 0.07, toneBase: 90  },
+  arcade: { noiseFreq: 2000, noiseQ: 2.2, noiseGain: 0.08, noiseDecay: 0.02,  toneType: 'square',   toneGain: 0.11, toneBase: 260 },
+};
+
 export class AudioEngine {
   constructor() {
     this.ctx = null;
     this.enabled = true;
+    this.profile = 'thock';
     this.master = null;
     this.droneGain = null;
     this._noiseBuf = null;
     this._voices = 0;
+  }
+
+  setProfile(name) {
+    if (PROFILE_PARAMS[name]) this.profile = name;
   }
 
   _ensure() {
@@ -117,16 +134,18 @@ export class AudioEngine {
     if (!this.enabled || !this._ensure()) return;
     if (this._voices > 8) return;
     this._voices++; setTimeout(() => this._voices--, 70);
+    const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
     // body thock + click transient, pitch creeping up with streak
     const lift = Math.min(1, streak / 90);
-    this._noise(0.05, { freq: 1500 + lift * 900, q: 0.9, gain: 0.14, decay: 0.028 });
-    this._tone(128 + lift * 44 + Math.random() * 14, 0.05, { type: 'triangle', gain: 0.09, glide: 0.6 });
+    this._noise(0.05, { freq: p.noiseFreq + lift * 900, q: p.noiseQ, gain: p.noiseGain, decay: p.noiseDecay });
+    this._tone(p.toneBase + lift * 44 + Math.random() * 14, 0.05, { type: p.toneType, gain: p.toneGain, glide: 0.6 });
   }
 
   space() {
     if (!this.enabled || !this._ensure()) return;
-    this._noise(0.07, { freq: 780, q: 0.7, gain: 0.17, decay: 0.045 });
-    this._tone(96, 0.07, { type: 'sine', gain: 0.1, glide: 0.55 });
+    const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
+    this._noise(0.07, { freq: p.noiseFreq * 0.52, q: p.noiseQ * 0.8, gain: p.noiseGain * 1.2, decay: p.noiseDecay * 1.6 });
+    this._tone(p.toneBase * 0.75, 0.07, { type: p.toneType, gain: p.toneGain * 1.1, glide: 0.55 });
   }
 
   error() {

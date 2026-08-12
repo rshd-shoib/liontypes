@@ -29,6 +29,9 @@ html[data-theme='ember']    { --accent:#ff6b35; --accent-2:#ff2e63; --bg-0:#0b05
 html[data-theme='matrix']   { --accent:#3ddc84; --accent-2:#0fa958; --bg-0:#03080500; --bg-0:#040805; }
 html[data-theme='orchid']   { --accent:#c77dff; --accent-2:#ff8fd0; --bg-0:#0a0610; }
 html[data-theme='arctic']   { --accent:#9ad7ff; --accent-2:#4ea8ff; --bg-0:#050a10; }
+html[data-theme='royal']    { --accent:#4d6bff; --accent-2:#a855f7; --bg-0:#06060f; }
+html[data-theme='crimson']  { --accent:#ff3b5c; --accent-2:#ffb020; --bg-0:#0c0507; }
+html[data-theme='solar']    { --accent:#ffd60a; --accent-2:#ff5fa2; --bg-0:#0c0a03; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
