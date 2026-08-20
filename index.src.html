@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#f4b942" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LionTypes" />
@@ -90,29 +91,47 @@
         </div>
 
         <nav id="config" aria-label="Test configuration">
-          <div class="cfg-group" data-group="mode">
-            <button class="cfg" data-mode="time" data-active="1">time</button>
-            <button class="cfg" data-mode="words">words</button>
-            <button class="cfg" data-mode="quote">quote</button>
-            <button class="cfg" data-mode="zen">zen</button>
+          <div class="cfg-block">
+            <span class="cfg-label">mode</span>
+            <div class="cfg-group" data-group="mode">
+              <button class="cfg" data-mode="time" data-active="1">time</button>
+              <button class="cfg" data-mode="words">words</button>
+              <button class="cfg" data-mode="quote">quote</button>
+              <button class="cfg" data-mode="zen">zen</button>
+            </div>
           </div>
           <span class="cfg-sep"></span>
-          <div class="cfg-group" data-group="amount" id="amount-group"></div>
+          <div class="cfg-block">
+            <span class="cfg-label">length</span>
+            <div class="cfg-group" data-group="amount" id="amount-group"></div>
+          </div>
           <span class="cfg-sep"></span>
-          <div class="cfg-group" data-group="mods">
-            <button class="cfg mod" data-mod="punctuation" title="Add punctuation">! punctuation</button>
-            <button class="cfg mod" data-mod="numbers" title="Add numbers"># numbers</button>
+          <div class="cfg-block">
+            <span class="cfg-label">extras</span>
+            <div class="cfg-group" data-group="mods">
+              <button class="cfg mod" data-mod="punctuation" title="Add punctuation">! punctuation</button>
+              <button class="cfg mod" data-mod="numbers" title="Add numbers"># numbers</button>
+            </div>
           </div>
         </nav>
 
-        <div class="topbar-right">
+        <div class="cfg-block">
+          <span class="cfg-label">controls</span>
+          <div class="topbar-right">
           <button class="icon-btn" id="btn-theme" title="Cycle theme (Ctrl+Shift+T)">◈</button>
+          <span id="theme-name" class="theme-name">savanna gold</span>
           <button class="icon-btn" id="btn-sound" title="Toggle sound (Ctrl+Shift+S)" data-on="1">♪</button>
-          <button class="icon-btn" id="btn-soundprofile" title="Cycle keystroke sound (Ctrl+Shift+P)">🎚</button>
+          <select id="sel-soundprofile" class="sound-select" title="Keystroke sound (Ctrl+Shift+P to cycle)">
+            <option value="thock">thock</option>
+            <option value="clicky">clicky</option>
+            <option value="soft">soft</option>
+            <option value="arcade">arcade</option>
+          </select>
           <button class="icon-btn" id="btn-lion" title="Toggle 3D lion (Ctrl+Shift+L)" data-on="1">▲</button>
           <button class="icon-btn" id="btn-board" title="World leaderboard">♛</button>
           <button class="icon-btn" id="btn-about" title="About &amp; FAQ">?</button>
           <button class="icon-btn" id="btn-leader" title="Session history">☰</button>
+        </div>
         </div>
       </header>
 
@@ -219,6 +238,7 @@
               <p>Yes — no account, no paywall, no ads.</p>
             </details>
           </div>
+          <p class="about-foot"><a href="/privacy.html">Privacy policy</a></p>
         </div>
       </section>
 

@@ -62,7 +62,16 @@ window.addEventListener('keydown', (e) => {
     const k = e.key.toLowerCase();
     if (k === 't') { e.preventDefault(); scene.cycleTheme(1); ui._savePrefs(); return; }
     if (k === 's') { e.preventDefault(); document.getElementById('btn-sound').click(); return; }
-    if (k === 'p') { e.preventDefault(); document.getElementById('btn-soundprofile')?.click(); return; }
+    if (k === 'p') {
+      e.preventDefault();
+      const sel = document.getElementById('sel-soundprofile');
+      if (sel) {
+        const opts = Array.from(sel.options).map((o) => o.value);
+        const next = opts[(opts.indexOf(sel.value) + 1) % opts.length];
+        ui._applySoundProfile(next);
+      }
+      return;
+    }
     if (k === 'l') { e.preventDefault(); document.getElementById('btn-lion').click(); return; }
     return;
   }

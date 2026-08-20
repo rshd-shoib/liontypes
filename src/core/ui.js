@@ -67,7 +67,8 @@ export class UIController {
     const p = this.store.prefs || {};
     if (typeof p.theme === 'number') this.scene.applyTheme(p.theme);
     if (p.sound === false) { this.audio.setEnabled(false); $('#btn-sound').dataset.on = '0'; }
-    if (typeof p.soundProfile === 'string') this.audio.setProfile(p.soundProfile);
+    if (typeof p.soundProfile === 'string' && SOUND_PROFILES.includes(p.soundProfile)) this.audio.setProfile(p.soundProfile);
+    if ($('#sel-soundprofile')) $('#sel-soundprofile').value = this.audio.profile;
     if (p.lion === false) { this.scene.setLionVisible(false); $('#btn-lion').dataset.on = '0'; }
     if (p.config) {
       Object.assign(this.engine.config, p.config);
@@ -101,6 +102,22 @@ export class UIController {
       el.classList.remove('show');
       setTimeout(() => { el.hidden = true; }, 260);
     }, 1200);
+  }
+
+  _applySoundProfile(name) {
+    if (!SOUND_PROFILES.includes(name)) return;
+    this.audio.setProfile(name);
+    const sel = $('#sel-soundprofile');
+    if (sel && sel.value !== name) sel.value = name;
+    // picking a sound is a clear signal you want to hear it —
+    // unmute rather than silently apply the change if sound was off
+    if ($('#btn-sound').dataset.on !== '1') {
+      $('#btn-sound').dataset.on = '1';
+      this.audio.setEnabled(true);
+    }
+    this.audio.key(0);
+    this._showToast(name);
+    this._savePrefs();
   }
 
   /* ── config bar ────────────────────────────────────────── */
@@ -165,14 +182,8 @@ export class UIController {
       if (on) this.audio.key(0);
       this._savePrefs(); this.focus();
     });
-    $('#btn-soundprofile')?.addEventListener('click', () => {
-      const i = (SOUND_PROFILES.indexOf(this.audio.profile) + 1) % SOUND_PROFILES.length;
-      const next = SOUND_PROFILES[i];
-      this.audio.setProfile(next);
-      if ($('#btn-sound').dataset.on === '1') this.audio.key(0);
-      this._showToast(next);
-      this._savePrefs(); this.focus();
-    });
+    $('#sel-soundprofile')?.addEventListener('change', (e) => this._applySoundProfile(e.target.value));
+    $('#sel-soundprofile')?.addEventListener('mousedown', () => this.focus());
     $('#btn-lion').addEventListener('click', (e) => {
       const on = e.currentTarget.dataset.on !== '1';
       e.currentTarget.dataset.on = on ? '1' : '0';

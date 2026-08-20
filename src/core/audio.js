@@ -134,18 +134,26 @@ export class AudioEngine {
     if (!this.enabled || !this._ensure()) return;
     if (this._voices > 8) return;
     this._voices++; setTimeout(() => this._voices--, 70);
-    const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
-    // body thock + click transient, pitch creeping up with streak
-    const lift = Math.min(1, streak / 90);
-    this._noise(0.05, { freq: p.noiseFreq + lift * 900, q: p.noiseQ, gain: p.noiseGain, decay: p.noiseDecay });
-    this._tone(p.toneBase + lift * 44 + Math.random() * 14, 0.05, { type: p.toneType, gain: p.toneGain, glide: 0.6 });
+    try {
+      const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
+      // body thock + click transient, pitch creeping up with streak
+      const lift = Math.min(1, streak / 90);
+      this._noise(0.05, { freq: p.noiseFreq + lift * 900, q: p.noiseQ, gain: p.noiseGain, decay: p.noiseDecay });
+      this._tone(p.toneBase + lift * 44 + Math.random() * 14, 0.05, { type: p.toneType, gain: p.toneGain, glide: 0.6 });
+    } catch (e) {
+      console.error('[audio.key] failed, profile=', this.profile, e);
+    }
   }
 
   space() {
     if (!this.enabled || !this._ensure()) return;
-    const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
-    this._noise(0.07, { freq: p.noiseFreq * 0.52, q: p.noiseQ * 0.8, gain: p.noiseGain * 1.2, decay: p.noiseDecay * 1.6 });
-    this._tone(p.toneBase * 0.75, 0.07, { type: p.toneType, gain: p.toneGain * 1.1, glide: 0.55 });
+    try {
+      const p = PROFILE_PARAMS[this.profile] || PROFILE_PARAMS.thock;
+      this._noise(0.07, { freq: p.noiseFreq * 0.52, q: p.noiseQ * 0.8, gain: p.noiseGain * 1.2, decay: p.noiseDecay * 1.6 });
+      this._tone(p.toneBase * 0.75, 0.07, { type: p.toneType, gain: p.toneGain * 1.1, glide: 0.55 });
+    } catch (e) {
+      console.error('[audio.space] failed, profile=', this.profile, e);
+    }
   }
 
   error() {

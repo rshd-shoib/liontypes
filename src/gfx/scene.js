@@ -159,6 +159,8 @@ export class SceneManager {
     this.gridUniforms.uAccent2.value.copy(this.palette.accent2);
     this.lion.setPalette(this.palette);
     this.particles.setPalette(this.palette);
+    const label = document.getElementById('theme-name');
+    if (label) label.textContent = theme.label;
     return theme;
   }
 
